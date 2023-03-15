@@ -56,6 +56,14 @@ public class Student {
     return this.name;
   }
 
+  public void setAge(Integer age) {
+    this.age = age;
+  }
+
+  public Integer getAge() {
+    return this.age;
+  }
+
   public void setGender(String gender) {
     this.gender = gender;
   }
