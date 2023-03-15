@@ -10,8 +10,8 @@ import jakarta.persistence.GenerationType;
 public class Faculty {
 
   @Id
-  @SequenceGenerator(name = "customer_id_sequence", sequenceName = "customer_id_sequence")
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id_sequence")
+  @SequenceGenerator(name = "faculty_id_sequence", sequenceName = "faculty_id_sequence")
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "faculty_id_sequence")
 
   private Integer id;
   private String name;
