@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-@RequestMapping("/home")
+@RequestMapping("")
 public class Main {
 
 	public static void main(String[] args) {
