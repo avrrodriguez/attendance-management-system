@@ -1,8 +1,5 @@
 package com.myapp;
 
-// import com.myapp.Student;
-// import com.myapp.StudentRepository;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,17 +12,17 @@ import java.util.Optional;
 
 @SpringBootApplication
 @RestController
-@RequestMapping("")
-public class Main {
+@RequestMapping("/students")
+public class StudentController {
 
 	private final StudentRepository studentRepository;
 
-	public Main(StudentRepository studentRepository) {
+	public StudentController(StudentRepository studentRepository) {
 		this.studentRepository = studentRepository;
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(Main.class, args);
+		SpringApplication.run(StudentController.class, args);
 	}
 
 	@GetMapping
@@ -33,7 +30,7 @@ public class Main {
 		return studentRepository.findAll();
 	}
 
-	@GetMapping
+	@GetMapping("/{studentId}")
 	public Optional<Student> getStudent(@PathVariable("studentId") Integer id) {
 		return studentRepository.findById(id);
 	}
