@@ -30,7 +30,7 @@ public class StudentController {
 		return studentRepository.findAll();
 	}
 
-	@GetMapping("/{studentId}")
+	@GetMapping("{studentId}")
 	public Optional<Student> getStudent(@PathVariable("studentId") Integer id) {
 		return studentRepository.findById(id);
 	}
