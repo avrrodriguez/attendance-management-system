@@ -25,8 +25,38 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE http://localhost:8080/students/1
+DELETE http://localhost:8080/students/2
 
 
 ### Faculty Get all
 GET http://localhost:8080/faculty
+
+### Faculty get one
+GET http://localhost:8080/faculty/2
+
+### Add faculty
+POST http://localhost:8080/faculty
+Content-Type: application/json
+
+{
+  "name": "Fakumrah",
+  "age": 56,
+  "gender": "Male",
+  "admin": true,
+  "subjectTeacher": "Physics"
+}
+
+### Update Faculty
+PUT http://localhost:8080/faculty/1
+Content-Type: application/json
+
+{
+  "name": "Fahk Yu",
+  "age": 56,
+  "gender": "Female",
+  "admin": true,
+  "subjectTeacher": "Physics"
+}
+
+### Delete faculty
+DELETE http://localhost:8080/faculty/1

@@ -43,6 +43,7 @@ public class StudentController {
 	@PostMapping
 	public void addStudent(@RequestBody StudentRequest request) {
 		Student student = new Student();
+
 		student.setName(request.name());
 		student.setAge(request.age());
 		student.setGender(request.gender());
