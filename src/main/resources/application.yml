@@ -6,6 +6,10 @@ spring:
     url: jdbc:postgresql://localhost:5332/student # path is to specific models within db
     username: avrr
     password: posAbe123!@#
+  # datasource:
+  #   url: jdbc:postgresql://localhost:5332/faculty
+  #   username: avrr
+  #   password: posAbe123!@#
   jpa:
     hibernate:
       ddl-auto: create-drop

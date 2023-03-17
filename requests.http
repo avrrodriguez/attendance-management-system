@@ -16,10 +16,13 @@ Content-Type: application/json
   "present": false
 }
 
-###
+### Update
 PUT http://localhost:8080/students/1
 Content-Type: application/json
 
 {
   "name": "Definitely Alex"
 }
+
+### Delete
+DELETE http://localhost:8080/students/1
