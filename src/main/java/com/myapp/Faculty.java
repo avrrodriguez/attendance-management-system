@@ -10,7 +10,7 @@ import jakarta.persistence.GenerationType;
 public class Faculty {
 
   @Id
-  @SequenceGenerator(name = "faculty_id_sequence", sequenceName = "faculty_id_sequence")
+  @SequenceGenerator(name = "faculty_id_sequence", sequenceName = "faculty_id_sequence", allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "faculty_id_sequence")
 
   private Integer id;
