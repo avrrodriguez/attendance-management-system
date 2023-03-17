@@ -3,3 +3,23 @@ GET http://localhost:8080/students
 
 ### Get one student
 GET http://localhost:8080/students/2
+
+### add new student
+POST http://localhost:8080/students
+Content-Type: application/json
+
+{
+  "name": "Alex",
+  "age": 18,
+  "gender": "NB",
+  "classYear": 2022,
+  "present": false
+}
+
+###
+PUT http://localhost:8080/students/1
+Content-Type: application/json
+
+{
+  "name": "Definitely Alex"
+}
