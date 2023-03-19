@@ -2,6 +2,8 @@ package com.myapp;
 
 import java.util.List;
 
+import com.myapp.exception.IdMissingException;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -28,7 +31,12 @@ public class FacultyController {
 
   @GetMapping("{facultyId}")
   public Faculty getFaculty(@PathVariable("facultyId") Integer id) {
-    return facultyRepository.findById(id).get();
+    if (facultyRepository.existsById(id) == false) {
+      throw new IdMissingException("Faculty with that Id not found.");
+    }
+    Faculty faculty = facultyRepository.findById(id).get();
+
+    return faculty;
   }
 
   record FacultyRequest(
@@ -58,6 +66,10 @@ public class FacultyController {
   public Faculty updateFaculty(@PathVariable("facultyId") Integer id,
       @RequestBody FacultyRequest request) {
 
+    if (facultyRepository.existsById(id) == false) {
+      throw new IdMissingException("Faculty with that Id not found.");
+    }
+
     Faculty faculty = facultyRepository.findById(id).get();
 
     String name = request.name() != null ? request.name() : faculty.getName();
@@ -79,6 +91,10 @@ public class FacultyController {
 
   @DeleteMapping("{facultyId}")
   public void deleteFaculty(@PathVariable("facultyId") Integer id) {
+    if (facultyRepository.existsById(id) == false) {
+      throw new IdMissingException("Faculty with that Id not found.");
+    }
+
     facultyRepository.deleteById(id);
   }
 }

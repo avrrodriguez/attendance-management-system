@@ -1,5 +1,7 @@
 package com.myapp;
 
+import com.myapp.exception.IdMissingException;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/students")
@@ -28,8 +29,16 @@ public class StudentController {
 	}
 
 	@GetMapping("{studentId}")
-	public Optional<Student> getStudent(@PathVariable("studentId") Integer id) {
-		return studentRepository.findById(id);
+	public Student getStudent(@PathVariable("studentId") Integer id) {
+
+		if (studentRepository.existsById(id) == false) {
+			throw new IdMissingException("Student with that Id not found.");
+		}
+
+		Student student = studentRepository.findById(id).get();
+
+		return student;
+
 	}
 
 	record StudentRequest(
@@ -57,7 +66,11 @@ public class StudentController {
 	public void updateStudent(@PathVariable("studentId") Integer id,
 			@RequestBody StudentRequest request) {
 
-		Student student = studentRepository.findById(id).get(); // get() checks if value is present otherwise raises error
+		if (studentRepository.existsById(id) == false) {
+			throw new IdMissingException("Student with that Id not found.");
+		}
+
+		Student student = studentRepository.findById(id).get();
 
 		String name = request.name() != null ? request.name() : student.getName();
 		Integer age = request.age() != null ? request.age() : student.getAge();
@@ -76,6 +89,9 @@ public class StudentController {
 
 	@DeleteMapping("{studentId}")
 	public void deleteStudent(@PathVariable("studentId") Integer id) {
+		if (studentRepository.existsById(id) == false) {
+			throw new IdMissingException("Student with that Id not found.");
+		}
 		studentRepository.deleteById(id);
 	}
 
