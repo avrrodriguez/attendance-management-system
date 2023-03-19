@@ -1,4 +1,4 @@
-package com.myapp;
+package com.myapp.student;
 
 import com.myapp.exception.IdMissingException;
 
