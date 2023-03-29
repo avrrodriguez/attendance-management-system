@@ -1,13 +1,24 @@
 package com.myapp.faculty;
 
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.token.Token;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
 @Entity
-public class Faculty {
+public class Faculty implements UserDetails {
 
   @Id
   @SequenceGenerator(name = "faculty_id_sequence", sequenceName = "faculty_id_sequence", allocationSize = 1)
@@ -17,21 +28,24 @@ public class Faculty {
   private String name;
   private Integer age;
   private String gender;
-  private Boolean admin;
   private String subjectTeacher;
+  private String email;
+  private String password;
 
   public Faculty(Integer id,
       String name,
       Integer age,
       String gender,
       String subjectTeacher,
-      Boolean admin) {
+      String email,
+      String password) {
     this.id = id;
     this.name = name;
     this.age = age;
     this.gender = gender;
     this.subjectTeacher = subjectTeacher;
-    this.admin = admin;
+    this.email = email;
+    this.password = password;
   }
 
   public Faculty() {
@@ -79,12 +93,47 @@ public class Faculty {
     return this.subjectTeacher;
   }
 
-  public void setAdmin(Boolean admin) {
-    this.admin = admin;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
-  public Boolean getAdmin() {
-    return this.admin;
+  public void setPassword(String password) {
+    this.password = password;
+  }
+  // authentication
+
+  @Enumerated(EnumType.STRING)
+  private Role role;
+
+  @OneToMany(mappedBy = "faculty")
+  private List<Token> tokens;
+
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return List.of(new SimpleGrantedAuthority(role.name()));
+  }
+
+  public String getUsername() {
+    return this.email;
+  }
+
+  public String getPassword() {
+    return this.password;
+  }
+
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  public boolean isEnabled() {
+    return true;
   }
 
 }

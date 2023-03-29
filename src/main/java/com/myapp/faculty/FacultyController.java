@@ -44,8 +44,9 @@ public class FacultyController {
       String name,
       Integer age,
       String gender,
-      Boolean admin,
-      String subjectTeacher) {
+      String subjectTeacher,
+      String email,
+      String password) {
   }
 
   @PostMapping
@@ -55,7 +56,8 @@ public class FacultyController {
     faculty.setName(request.name());
     faculty.setAge(request.age());
     faculty.setGender(request.gender());
-    faculty.setAdmin(request.admin());
+    faculty.setEmail(request.email());
+    faculty.setPassword(request.password());
     faculty.setSubjectTeacher(request.subjectTeacher());
 
     facultyRepository.save(faculty);
@@ -75,13 +77,13 @@ public class FacultyController {
     String name = request.name() != null ? request.name() : faculty.getName();
     Integer age = request.age() != null ? request.age() : faculty.getAge();
     String gender = request.gender() != null ? request.gender() : faculty.getGender();
-    Boolean admin = request.admin() != null ? request.admin() : faculty.getAdmin();
+    String email = request.email() != null ? request.email() : faculty.getUsername();
     String subjectTeacher = request.subjectTeacher() != null ? request.subjectTeacher() : faculty.getSubjectTeacher();
 
     faculty.setName(name);
     faculty.setAge(age);
     faculty.setGender(gender);
-    faculty.setAdmin(admin);
+    faculty.setEmail(email);
     faculty.setSubjectTeacher(subjectTeacher);
 
     facultyRepository.save(faculty);
