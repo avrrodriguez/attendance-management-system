@@ -28,7 +28,7 @@ public class AuthenticationService {
         .gender(request.getGender())
         .subjectTeacher(request.getSubjectTeacher())
         .email(request.getEmail())
-        .name(passwordEncoder.encode(request.getPassword()))
+        .password(passwordEncoder.encode(request.getPassword()))
         .role(Role.FACULTY)
         .build();
     repository.save(user);

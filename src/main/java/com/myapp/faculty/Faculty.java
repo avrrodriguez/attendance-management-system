@@ -5,14 +5,12 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.token.Token;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -52,6 +50,17 @@ public class Faculty implements UserDetails {
     this.subjectTeacher = subjectTeacher;
     this.email = email;
     this.password = password;
+  }
+
+  @Enumerated(EnumType.STRING)
+  private Role role;
+
+  // @OneToMany(mappedBy = "faculty")
+  // private List<Token> tokens;
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return List.of(new SimpleGrantedAuthority(role.name()));
   }
 
   public Faculty() {
@@ -107,17 +116,6 @@ public class Faculty implements UserDetails {
     this.password = password;
   }
   // authentication
-
-  @Enumerated(EnumType.STRING)
-  private Role role;
-
-  @OneToMany(mappedBy = "faculty")
-  private List<Token> tokens;
-
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return List.of(new SimpleGrantedAuthority(role.name()));
-  }
 
   public String getUsername() {
     return this.email;
