@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   private final JwtService jwtService;
-  private UserDetailsService userDetailsService;
+  private final UserDetailsService userDetailsService;
 
   protected void doFilterInternal(
       @NonNull HttpServletRequest request,
@@ -39,6 +39,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
     jwt = authHeader.substring(7);
     userEmail = jwtService.extractUsername(jwt); // todo extract userEmail from jwt token
+
+    System.out.printf("Jwt Authentication Filter after user email %s .", userEmail);
+    System.out.printf("Jwt Authentication user details service %s .", userDetailsService);
 
     // getAuthentication is null when user is not authenticated
     if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {

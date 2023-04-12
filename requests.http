@@ -1,3 +1,5 @@
+token = ""
+
 ### Get all students
 GET http://localhost:8080/students
 
@@ -42,7 +44,6 @@ Content-Type: application/json
   "name": "Fakumrah",
   "age": 56,
   "gender": "Male",
-  "admin": true,
   "subjectTeacher": "Physics"
 }
 
@@ -54,9 +55,24 @@ Content-Type: application/json
   "name": "Fahk Yu",
   "age": 56,
   "gender": "Female",
-  "admin": true,
   "subjectTeacher": "Physics"
 }
 
 ### Delete faculty
 DELETE http://localhost:8080/faculty/1
+
+### authentication register
+POST http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+  "name": "Fakumrah",
+  "age": 56,
+  "gender": "Male",
+  "subjectTeacher": "Physics",
+  "email": "fakumrah@email.com",
+  "password": "password"
+}
+
+### authentication authenticate
+POST http://localhost:8080/auth/authentication
