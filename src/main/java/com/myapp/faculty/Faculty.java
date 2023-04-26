@@ -68,6 +68,14 @@ public class Faculty implements UserDetails {
 
   // getters and setters
 
+  public Role getRole(String role) {
+    if (role == "faculty") {
+      return Role.FACULTY;
+    } else {
+      return Role.ADMIN;
+    }
+  }
+
   public void setId(Integer id) {
     this.id = id;
   }

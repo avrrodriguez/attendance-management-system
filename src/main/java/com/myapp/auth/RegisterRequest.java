@@ -1,5 +1,7 @@
 package com.myapp.auth;
 
+import com.myapp.faculty.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,4 +19,5 @@ public class RegisterRequest {
   private String subjectTeacher;
   private String email;
   private String password;
+  private Role role;
 }

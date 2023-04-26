@@ -6,7 +6,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.myapp.faculty.Faculty;
-import com.myapp.faculty.Role;
 import com.myapp.faculty.FacultyRepository;
 import com.myapp.security.JwtService;
 
@@ -29,7 +28,7 @@ public class AuthenticationService {
         .subjectTeacher(request.getSubjectTeacher())
         .email(request.getEmail())
         .password(passwordEncoder.encode(request.getPassword()))
-        .role(Role.FACULTY)
+        .role(request.getRole())
         .build();
     repository.save(user);
     var jwtToken = jwtService.generateToken(user);
