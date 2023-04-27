@@ -19,5 +19,13 @@ public class RegisterRequest {
   private String subjectTeacher;
   private String email;
   private String password;
-  private Role role;
+  private String role;
+
+  public Role getRole() {
+    if (this.role == "admin") {
+      return Role.ADMIN;
+    } else {
+      return Role.FACULTY;
+    }
+  }
 }
